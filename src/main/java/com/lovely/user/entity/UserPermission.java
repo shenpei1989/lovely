@@ -1,14 +1,16 @@
 package com.lovely.user.entity;
 
 import java.sql.Timestamp;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.ColumnDefault;
 
 @Entity
 @Table(name = "user_permission")
@@ -24,6 +26,10 @@ public class UserPermission {
 	private boolean permissionState=true;
 	private Timestamp createTime;
 	private Timestamp updateTime;
+	
+	@ManyToMany
+	@JoinTable(name="role_permission",joinColumns={@JoinColumn(name="permission_id")},inverseJoinColumns={@JoinColumn(name="role_id")})
+	private Set<UserRole> roleSet;
 
 	public long getPermissionId() {
 		return permissionId;
@@ -87,5 +93,13 @@ public class UserPermission {
 
 	public void setPermissionState(boolean permissionState) {
 		this.permissionState = permissionState;
+	}
+
+	public Set<UserRole> getRoleSet() {
+		return roleSet;
+	}
+
+	public void setRoleSet(Set<UserRole> roleSet) {
+		this.roleSet = roleSet;
 	}
 }

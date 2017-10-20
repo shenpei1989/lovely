@@ -1,11 +1,13 @@
 package com.lovely.user.entity;
 
 import java.sql.Timestamp;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -19,6 +21,9 @@ public class UserRole {
 	private boolean roleState=true;
 	private Timestamp createTime;
 	private Timestamp updateTime;
+	
+	@ManyToMany
+	private Set<UserPermission> userPermissionSet;
 
 	public long getRoleId() {
 		return roleId;
@@ -66,6 +71,14 @@ public class UserRole {
 
 	public void setUpdateTime(Timestamp updateTime) {
 		this.updateTime = updateTime;
+	}
+
+	public Set<UserPermission> getUserPermissionSet() {
+		return userPermissionSet;
+	}
+
+	public void setUserPermissionSet(Set<UserPermission> userPermissionSet) {
+		this.userPermissionSet = userPermissionSet;
 	}
 
 }
